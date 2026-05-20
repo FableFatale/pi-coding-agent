@@ -1,0 +1,700 @@
+{
+  "name": "Prompt Flow Test Suite",
+  "description": "Generated from 20 nodes, 86 paths",
+  "total_tests": 45,
+  "test_cases": [
+    {
+      "id": "tc_0001",
+      "name": "Path: A->D->K->L->M->P->Q->E->F->G->H",
+      "description": "Test path: path_5",
+      "test_type": "normal",
+      "path": [
+        "A",
+        "D",
+        "K",
+        "L",
+        "M",
+        "P",
+        "Q",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "user_inputs": [],
+      "expected_ending": "H",
+      "variables": {}
+    },
+    {
+      "id": "tc_0002",
+      "name": "Path: A->D->K->L->M->P->Q->E->F->G->I",
+      "description": "Test path: path_18",
+      "test_type": "normal",
+      "path": [
+        "A",
+        "D",
+        "K",
+        "L",
+        "M",
+        "P",
+        "Q",
+        "E",
+        "F",
+        "G",
+        "I"
+      ],
+      "user_inputs": [],
+      "expected_ending": "I",
+      "variables": {}
+    },
+    {
+      "id": "tc_0003",
+      "name": "Path: A->D->K->L->M->P->Q->E->F->G->J",
+      "description": "Test path: path_29",
+      "test_type": "normal",
+      "path": [
+        "A",
+        "D",
+        "K",
+        "L",
+        "M",
+        "P",
+        "Q",
+        "E",
+        "F",
+        "G",
+        "J"
+      ],
+      "user_inputs": [],
+      "expected_ending": "J",
+      "variables": {}
+    },
+    {
+      "id": "tc_0004",
+      "name": "Path: A->D->K->L->M->P->Q->F->G->H",
+      "description": "Test path: path_6",
+      "test_type": "normal",
+      "path": [
+        "A",
+        "D",
+        "K",
+        "L",
+        "M",
+        "P",
+        "Q",
+        "F",
+        "G",
+        "H"
+      ],
+      "user_inputs": [],
+      "expected_ending": "H",
+      "variables": {}
+    },
+    {
+      "id": "tc_0005",
+      "name": "Path: A->D->K->L->M->P->Q->F->G->I",
+      "description": "Test path: path_19",
+      "test_type": "normal",
+      "path": [
+        "A",
+        "D",
+        "K",
+        "L",
+        "M",
+        "P",
+        "Q",
+        "F",
+        "G",
+        "I"
+      ],
+      "user_inputs": [],
+      "expected_ending": "I",
+      "variables": {}
+    },
+    {
+      "id": "tc_0006",
+      "name": "Edge: A -> D",
+      "description": "Test condition: 本人节点node1",
+      "test_type": "edge",
+      "path": [
+        "A",
+        "D"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0007",
+      "name": "Edge: A -> B",
+      "description": "Test condition: 非本人节点node2",
+      "test_type": "edge",
+      "path": [
+        "A",
+        "B"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0008",
+      "name": "Edge: A -> E",
+      "description": "Test condition: 用户拒绝节点node10",
+      "test_type": "edge",
+      "path": [
+        "A",
+        "E"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0009",
+      "name": "Edge: A -> F",
+      "description": "Test condition: 用户忙碌节点node11",
+      "test_type": "edge",
+      "path": [
+        "A",
+        "F"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0010",
+      "name": "Edge: A -> G",
+      "description": "Test condition: 用户投诉举报节点node12",
+      "test_type": "edge",
+      "path": [
+        "A",
+        "G"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0011",
+      "name": "Edge: D -> K",
+      "description": "Test condition: 用户同意回访节点",
+      "test_type": "edge",
+      "path": [
+        "D",
+        "K"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0012",
+      "name": "Edge: D -> E",
+      "description": "Test condition: 用户不同意",
+      "test_type": "edge",
+      "path": [
+        "D",
+        "E"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0013",
+      "name": "Edge: B -> U",
+      "description": "Test condition: 认识本人",
+      "test_type": "edge",
+      "path": [
+        "B",
+        "U"
+      ],
+      "user_inputs": [],
+      "expected_ending": "U",
+      "variables": {}
+    },
+    {
+      "id": "tc_0014",
+      "name": "Edge: B -> T",
+      "description": "Test condition: 不认识本人",
+      "test_type": "edge",
+      "path": [
+        "B",
+        "T"
+      ],
+      "user_inputs": [],
+      "expected_ending": "T",
+      "variables": {}
+    },
+    {
+      "id": "tc_0015",
+      "name": "Edge: G -> H",
+      "description": "Test condition: 礼貌挂机节点违规知道分期1",
+      "test_type": "edge",
+      "path": [
+        "G",
+        "H"
+      ],
+      "user_inputs": [],
+      "expected_ending": "H",
+      "variables": {}
+    },
+    {
+      "id": "tc_0016",
+      "name": "Edge: G -> I",
+      "description": "Test condition: 礼貌挂机节点违规不知道分期2",
+      "test_type": "edge",
+      "path": [
+        "G",
+        "I"
+      ],
+      "user_inputs": [],
+      "expected_ending": "I",
+      "variables": {}
+    },
+    {
+      "id": "tc_0017",
+      "name": "Edge: G -> J",
+      "description": "Test condition: 登记挂机节点",
+      "test_type": "edge",
+      "path": [
+        "G",
+        "J"
+      ],
+      "user_inputs": [],
+      "expected_ending": "J",
+      "variables": {}
+    },
+    {
+      "id": "tc_0018",
+      "name": "Edge: L -> N",
+      "description": "Test condition: 在询问手机节点拿到了物品核实分期",
+      "test_type": "edge",
+      "path": [
+        "L",
+        "N"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0019",
+      "name": "Edge: L -> I",
+      "description": "Test condition: 在询问手机节点拿到了物品不知道分期",
+      "test_type": "edge",
+      "path": [
+        "L",
+        "I"
+      ],
+      "user_inputs": [],
+      "expected_ending": "I",
+      "variables": {}
+    },
+    {
+      "id": "tc_0020",
+      "name": "Edge: L -> M",
+      "description": "Test condition: 在询问手机节点没拿到手机类物品进入宽带节点node5",
+      "test_type": "edge",
+      "path": [
+        "L",
+        "M"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0021",
+      "name": "Edge: L -> N",
+      "description": "Test condition: 有优惠也属于赠品",
+      "test_type": "edge",
+      "path": [
+        "L",
+        "N"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0022",
+      "name": "Edge: L -> N",
+      "description": "Test condition: 连着说好多个什么什么什么也没收到",
+      "test_type": "edge",
+      "path": [
+        "L",
+        "N"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0023",
+      "name": "Edge: M -> N",
+      "description": "Test condition: 有宽带设备核实分期",
+      "test_type": "edge",
+      "path": [
+        "M",
+        "N"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0024",
+      "name": "Edge: M -> O",
+      "description": "Test condition: 无设备且不属于宽带商品",
+      "test_type": "edge",
+      "path": [
+        "M",
+        "O"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0025",
+      "name": "Edge: M -> P",
+      "description": "Test condition: 不属于家电库",
+      "test_type": "edge",
+      "path": [
+        "M",
+        "P"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0026",
+      "name": "Edge: N -> I",
+      "description": "Test condition: 不清楚分期",
+      "test_type": "edge",
+      "path": [
+        "N",
+        "I"
+      ],
+      "user_inputs": [],
+      "expected_ending": "I",
+      "variables": {}
+    },
+    {
+      "id": "tc_0027",
+      "name": "Edge: N -> H",
+      "description": "Test condition: 知道分期且明确回复",
+      "test_type": "edge",
+      "path": [
+        "N",
+        "H"
+      ],
+      "user_inputs": [],
+      "expected_ending": "H",
+      "variables": {}
+    },
+    {
+      "id": "tc_0028",
+      "name": "Edge: N -> J",
+      "description": "Test condition: 有折现或者什么也没有节点",
+      "test_type": "edge",
+      "path": [
+        "N",
+        "J"
+      ],
+      "user_inputs": [],
+      "expected_ending": "J",
+      "variables": {}
+    },
+    {
+      "id": "tc_0029",
+      "name": "Edge: P -> N",
+      "description": "Test condition: 折现分支",
+      "test_type": "edge",
+      "path": [
+        "P",
+        "N"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0030",
+      "name": "Edge: P -> Q",
+      "description": "Test condition: 无折现",
+      "test_type": "edge",
+      "path": [
+        "P",
+        "Q"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0031",
+      "name": "Edge: Q -> N",
+      "description": "Test condition: 表示拿到了",
+      "test_type": "edge",
+      "path": [
+        "Q",
+        "N"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0032",
+      "name": "Edge: Q -> E",
+      "description": "Test condition: 用户拒绝回复",
+      "test_type": "edge",
+      "path": [
+        "Q",
+        "E"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0033",
+      "name": "Edge: Q -> F",
+      "description": "Test condition: 用户表示忙碌",
+      "test_type": "edge",
+      "path": [
+        "Q",
+        "F"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0034",
+      "name": "Edge: Q -> H",
+      "description": "Test condition: 用户表示投诉",
+      "test_type": "edge",
+      "path": [
+        "Q",
+        "H"
+      ],
+      "user_inputs": [],
+      "expected_ending": "H",
+      "variables": {}
+    },
+    {
+      "id": "tc_0035",
+      "name": "Edge: Q -> N",
+      "description": "Test condition: 用户表示没有拿到",
+      "test_type": "edge",
+      "path": [
+        "Q",
+        "N"
+      ],
+      "user_inputs": [],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0036",
+      "name": "Edge Input @ A: 中性",
+      "description": "Test 中性 at node A",
+      "test_type": "edge",
+      "path": [
+        "A"
+      ],
+      "user_inputs": [
+        {
+          "node": "A",
+          "input": "嗯"
+        }
+      ],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0037",
+      "name": "Edge Input @ A: 否定",
+      "description": "Test 否定 at node A",
+      "test_type": "edge",
+      "path": [
+        "A"
+      ],
+      "user_inputs": [
+        {
+          "node": "A",
+          "input": "不知道"
+        }
+      ],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0038",
+      "name": "Edge Input @ A: 疑问",
+      "description": "Test 疑问 at node A",
+      "test_type": "edge",
+      "path": [
+        "A"
+      ],
+      "user_inputs": [
+        {
+          "node": "A",
+          "input": "?"
+        }
+      ],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0039",
+      "name": "Edge Input @ H: 中性",
+      "description": "Test 中性 at node H",
+      "test_type": "edge",
+      "path": [
+        "H"
+      ],
+      "user_inputs": [
+        {
+          "node": "H",
+          "input": "嗯"
+        }
+      ],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0040",
+      "name": "Edge Input @ H: 否定",
+      "description": "Test 否定 at node H",
+      "test_type": "edge",
+      "path": [
+        "H"
+      ],
+      "user_inputs": [
+        {
+          "node": "H",
+          "input": "不知道"
+        }
+      ],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0041",
+      "name": "Edge Input @ H: 疑问",
+      "description": "Test 疑问 at node H",
+      "test_type": "edge",
+      "path": [
+        "H"
+      ],
+      "user_inputs": [
+        {
+          "node": "H",
+          "input": "?"
+        }
+      ],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0042",
+      "name": "Edge Input @ I: 中性",
+      "description": "Test 中性 at node I",
+      "test_type": "edge",
+      "path": [
+        "I"
+      ],
+      "user_inputs": [
+        {
+          "node": "I",
+          "input": "嗯"
+        }
+      ],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0043",
+      "name": "Edge Input @ I: 否定",
+      "description": "Test 否定 at node I",
+      "test_type": "edge",
+      "path": [
+        "I"
+      ],
+      "user_inputs": [
+        {
+          "node": "I",
+          "input": "不知道"
+        }
+      ],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0044",
+      "name": "Edge Input @ I: 疑问",
+      "description": "Test 疑问 at node I",
+      "test_type": "edge",
+      "path": [
+        "I"
+      ],
+      "user_inputs": [
+        {
+          "node": "I",
+          "input": "?"
+        }
+      ],
+      "expected_ending": null,
+      "variables": {}
+    },
+    {
+      "id": "tc_0045",
+      "name": "Happy Path",
+      "description": "Test complete flow with positive responses",
+      "test_type": "normal",
+      "path": [
+        "A",
+        "H",
+        "I",
+        "J",
+        "T",
+        "U"
+      ],
+      "user_inputs": [
+        {
+          "node": "A",
+          "input": "好的"
+        },
+        {
+          "node": "H",
+          "input": "好的"
+        },
+        {
+          "node": "I",
+          "input": "好的"
+        },
+        {
+          "node": "J",
+          "input": "好的"
+        },
+        {
+          "node": "T",
+          "input": "好的"
+        },
+        {
+          "node": "U",
+          "input": "好的"
+        }
+      ],
+      "expected_ending": "U",
+      "variables": {}
+    }
+  ]
+}

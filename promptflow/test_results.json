@@ -1,0 +1,387 @@
+{
+  "timestamp": "2026-04-11T15:57:32.720673",
+  "total": 22,
+  "passed": 18,
+  "failed": 4,
+  "rate": 81.81818181818183,
+  "results": [
+    {
+      "name": "未沟通-零互动",
+      "category": "未沟通",
+      "expected": "未沟通",
+      "actual": "未沟通",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "",
+          "ai": "您好"
+        }
+      ]
+    },
+    {
+      "name": "未沟通-语气词",
+      "category": "未沟通",
+      "expected": "未沟通",
+      "actual": "未沟通",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "嗯",
+          "ai": "您好"
+        },
+        {
+          "user": "嗯嗯",
+          "ai": "请问"
+        }
+      ]
+    },
+    {
+      "name": "未沟通-中途挂机",
+      "category": "未沟通",
+      "expected": "未沟通",
+      "actual": "营销缺失",
+      "passed": false,
+      "dialogue": [
+        {
+          "user": "等一下",
+          "ai": "好的"
+        },
+        {
+          "user": "",
+          "ai": "喂？"
+        }
+      ]
+    },
+    {
+      "name": "正常-手机",
+      "category": "正常",
+      "expected": "正常",
+      "actual": "正常",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "拿到了华为手机",
+          "ai": "好的"
+        },
+        {
+          "user": "知道每月还款",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "正常-宽带",
+      "category": "正常",
+      "expected": "正常",
+      "actual": "正常",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "装好了宽带",
+          "ai": "好的"
+        },
+        {
+          "user": "晓得咯",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "正常-方言粤语",
+      "category": "正常",
+      "expected": "正常",
+      "actual": "正常",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "係啊收到咯",
+          "ai": "请问"
+        },
+        {
+          "user": "整了个路由器",
+          "ai": "好的"
+        },
+        {
+          "user": "知道得嘛",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "正常-方言东北",
+      "category": "正常",
+      "expected": "正常",
+      "actual": "正常",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "整了个宽带",
+          "ai": "好的"
+        },
+        {
+          "user": "知道得了",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "套机套现-只收钱",
+      "category": "套机套现",
+      "expected": "套机套现",
+      "actual": "营销缺失",
+      "passed": false,
+      "dialogue": [
+        {
+          "user": "我只收到钱没拿东西",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "套机套现-什么都没收",
+      "category": "套机套现",
+      "expected": "套机套现",
+      "actual": "套机套现",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "啥都没收到",
+          "ai": "请问"
+        },
+        {
+          "user": "只有折现",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "套机套现-方言",
+      "category": "套机套现",
+      "expected": "套机套现",
+      "actual": "套机套现",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "根本冇收到咯",
+          "ai": "请问"
+        },
+        {
+          "user": "只有钱",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "违规商品-耳机",
+      "category": "违规商品",
+      "expected": "违规商品",
+      "actual": "违规商品",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "拿到了耳机",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "违规商品-空气炸锅",
+      "category": "违规商品",
+      "expected": "违规商品",
+      "actual": "违规商品",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "整了个空气炸锅",
+          "ai": "好的"
+        },
+        {
+          "user": "晓得咯",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "违规商品-锅",
+      "category": "违规商品",
+      "expected": "违规商品",
+      "actual": "营销缺失",
+      "passed": false,
+      "dialogue": [
+        {
+          "user": "我拿了个锅",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "违规商品-充电宝",
+      "category": "违规商品",
+      "expected": "违规商品",
+      "actual": "违规商品",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "拿到了个充电宝",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "违规商品-付费但违规",
+      "category": "违规商品",
+      "expected": "违规商品",
+      "actual": "违规商品",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "我花钱买的耳机",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "营销缺失-不知业务",
+      "category": "营销缺失",
+      "expected": "营销缺失",
+      "actual": "营销缺失",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "我不知道啥是橙分期",
+          "ai": "请问"
+        },
+        {
+          "user": "整了个手机",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "营销缺失-投诉",
+      "category": "营销缺失",
+      "expected": "营销缺失",
+      "actual": "营销缺失",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "我要投诉",
+          "ai": "请问"
+        },
+        {
+          "user": "被骗了",
+          "ai": "抱歉"
+        }
+      ]
+    },
+    {
+      "name": "营销缺失-反问",
+      "category": "营销缺失",
+      "expected": "营销缺失",
+      "actual": "营销缺失",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "啥是橙分期？",
+          "ai": "橙分期是..."
+        },
+        {
+          "user": "咋还？",
+          "ai": "每月..."
+        }
+      ]
+    },
+    {
+      "name": "营销缺失-被骗",
+      "category": "营销缺失",
+      "expected": "营销缺失",
+      "actual": "营销缺失",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "我被骗了",
+          "ai": "请问"
+        },
+        {
+          "user": "说免费结果扣钱",
+          "ai": "抱歉"
+        }
+      ]
+    },
+    {
+      "name": "营销缺失-收到但不知晓",
+      "category": "营销缺失",
+      "expected": "营销缺失",
+      "actual": "营销缺失",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "拿到了手机",
+          "ai": "好的"
+        },
+        {
+          "user": "不知道",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "边界-矛盾表述",
+      "category": "边界",
+      "expected": "正常",
+      "actual": "营销缺失",
+      "passed": false,
+      "dialogue": [
+        {
+          "user": "收到了但好像又没收到",
+          "ai": "请问"
+        },
+        {
+          "user": "整了个手机",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ]
+    },
+    {
+      "name": "边界-长对话",
+      "category": "边界",
+      "expected": "正常",
+      "actual": "正常",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "我当时办的时候业务员说了一堆",
+          "ai": "好的"
+        },
+        {
+          "user": "他说每月只要付很少的钱就能拿个手机",
+          "ai": "好的"
+        },
+        {
+          "user": "拿到了华为",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ]
+    }
+  ]
+}

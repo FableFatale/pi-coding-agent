@@ -1,0 +1,28 @@
+{
+  "name": "pi-project-context",
+  "version": "0.1.0",
+  "description": "项目上下文管理 - 自动检测项目类型、包管理器、框架",
+  "main": "context.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "pi-extension",
+    "pi-coding-agent",
+    "project",
+    "context",
+    "detection"
+  ],
+  "author": "",
+  "license": "MIT",
+  "pi": {
+    "extensions": ["./context.ts"]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.66.1"
+  }
+}

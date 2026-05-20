@@ -1,0 +1,18 @@
+{
+  "description": "Pi Coding Agent 配置模板",
+  "apiKeys": {
+    "minimax": "",
+    "google": "",
+    "anthropic": "",
+    "openai": ""
+  },
+  "models": {
+    "minimax": {
+      "baseUrl": "https://api.minimaxi.com/anthropic",
+      "api": "anthropic-messages",
+      "modelId": "MiniMax-M2.7-highspeed",
+      "contextWindow": 204800,
+      "maxTokens": 32000
+    }
+  }
+}

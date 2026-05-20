@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电信橙分期话术与标签测试报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        /* 头部 */
+        .header { background: white; border-radius: 16px; padding: 30px; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .header h1 { color: #333; font-size: 28px; margin-bottom: 10px; }
+        .header .subtitle { color: #666; font-size: 14px; }
+        .header .version { background: #667eea; color: white; padding: 5px 15px; border-radius: 20px; display: inline-block; margin-top: 10px; font-size: 12px; }
+
+        /* 统计卡片 */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .stat-card { background: white; border-radius: 16px; padding: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .stat-card h3 { color: #666; font-size: 14px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-card .value { font-size: 42px; font-weight: bold; margin-bottom: 5px; }
+        .stat-card .sub { color: #999; font-size: 13px; }
+        .stat-card.total { border-top: 4px solid #3498db; }
+        .stat-card.total .value { color: #3498db; }
+        .stat-card.passed { border-top: 4px solid #27ae60; }
+        .stat-card.passed .value { color: #27ae60; }
+        .stat-card.failed { border-top: 4px solid #e74c3c; }
+        .stat-card.failed .value { color: #e74c3c; }
+        .stat-card.rate { border-top: 4px solid #f39c12; }
+        .stat-card.rate .value { color: #f39c12; }
+
+        /* 标签 */
+        .section { background: white; border-radius: 16px; padding: 25px; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .section h2 { color: #333; font-size: 20px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0; }
+        .section h2 .icon { margin-right: 10px; }
+
+        /* 测试卡片 */
+        .test-card { background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 4px solid #ddd; transition: all 0.3s; }
+        .test-card:hover { transform: translateX(5px); box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .test-card.pass { border-left-color: #27ae60; background: #f0fff4; }
+        .test-card.fail { border-left-color: #e74c3c; background: #fff5f5; }
+
+        .test-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .test-id { background: #667eea; color: white; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .test-status { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .test-status.pass { background: #27ae60; color: white; }
+        .test-status.fail { background: #e74c3c; color: white; }
+
+        .test-name { font-weight: bold; color: #333; margin-bottom: 8px; }
+        .test-desc { color: #666; font-size: 14px; margin-bottom: 10px; }
+        .test-reason { background: #fff3cd; padding: 10px; border-radius: 8px; font-size: 13px; color: #856404; margin-bottom: 10px; }
+
+        .dialogue-box { background: white; border-radius: 8px; padding: 15px; margin-top: 10px; }
+        .dialogue-item { margin: 8px 0; padding: 8px 12px; border-radius: 8px; }
+        .dialogue-item.user { background: #e8f5e9; margin-left: 20px; }
+        .dialogue-item.ai { background: #e3f2fd; margin-right: 20px; }
+        .dialogue-item .label { font-size: 11px; color: #666; margin-bottom: 3px; }
+        .dialogue-item .text { color: #333; }
+
+        .context-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; }
+        .context-item { background: white; padding: 8px 12px; border-radius: 8px; text-align: center; }
+        .context-item .label { font-size: 11px; color: #999; }
+        .context-item .value { font-size: 14px; font-weight: bold; color: #333; }
+
+        .result-compare { display: flex; gap: 20px; margin-top: 10px; }
+        .result-item { flex: 1; padding: 10px; border-radius: 8px; text-align: center; }
+        .result-item.expected { background: #d4edda; }
+        .result-item.actual { background: #f8d7da; }
+        .result-item .label { font-size: 11px; color: #666; }
+        .result-item .value { font-size: 16px; font-weight: bold; }
+        .result-item.expected .value { color: #155724; }
+        .result-item.actual .value { color: #721c24; }
+
+        /* 优化建议 */
+        .suggestion { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-top: 15px; }
+        .suggestion h4 { margin-bottom: 10px; font-size: 16px; }
+        .suggestion ul { margin-left: 20px; line-height: 1.8; }
+        .suggestion li { margin-bottom: 5px; }
+
+        /* 表格 */
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .data-table th, .data-table td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        .data-table th { background: #f8f9fa; color: #666; font-weight: 600; font-size: 13px; text-transform: uppercase; }
+        .data-table tr:hover { background: #f8f9fa; }
+        .data-table .badge { padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .badge.pass { background: #27ae60; color: white; }
+        .badge.fail { background: #e74c3c; color: white; }
+        .badge.normal { background: #3498db; color: white; }
+        .badge.warning { background: #f39c12; color: white; }
+
+        /* 页脚 */
+        .footer { text-align: center; color: rgba(255,255,255,0.7); padding: 20px; font-size: 13px; }
+
+        /* 动画 */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .section, .stat-card { animation: fadeIn 0.5s ease-out; }
+        .stat-card:nth-child(2) { animation-delay: 0.1s; }
+        .stat-card:nth-child(3) { animation-delay: 0.2s; }
+        .stat-card:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>📊 电信橙分期话术与标签测试报告</h1>
+            <div class="subtitle">版本 2.0 | 生成时间: 2026-04-15 14:05:37</div>
+            <span class="version">完整版测试</span>
+        </div>
+
+        <!-- 统计卡片 -->
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <h3>错误案例测试</h3>
+                <div class="value">6</div>
+                <div class="sub">总测试数</div>
+            </div>
+            <div class="stat-card passed">
+                <h3>通过</h3>
+                <div class="value">5</div>
+                <div class="sub">正确判定</div>
+            </div>
+            <div class="stat-card failed">
+                <h3>失败</h3>
+                <div class="value">1</div>
+                <div class="sub">需要优化</div>
+            </div>
+            <div class="stat-card rate">
+                <h3>通过率</h3>
+                <div class="value">83%</div>
+                <div class="sub">判定准确度</div>
+            </div>
+        </div>
+
+        <!-- 错误案例分析 -->
+        <div class="section">
+            <h2><span class="icon">🔍</span>错误案例详细分析</h2>
+
+            <div class="test-card pass">
+                <div class="test-header">
+                    <span class="test-id">案例 2245940</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="test-name">标签出错，应该是正常</div>
+                <div class="test-reason">💡 用户说'拿到了手机'且'知道'，应判定为正常</div>
+
+                <div class="result-compare">
+                    <div class="result-item expected">
+                        <div class="label">期望标签</div>
+                        <div class="value">正常</div>
+                    </div>
+                    <div class="result-item actual">
+                        <div class="label">实际判定</div>
+                        <div class="value">正常</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-box">
+                    <strong>对话记录:</strong>
+                    
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">我拿到了手机</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">请问您知道橙分期吗？</div>
+            </div>
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">知道</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">好的</div>
+            </div>
+                </div>
+
+                <div class="context-grid">
+                    <div class="context-item">
+                        <div class="label">收到商品</div>
+                        <div class="value">True</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">商品类型</div>
+                        <div class="value">手机</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">知晓合约</div>
+                        <div class="value">True</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">付费</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">被回收</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">投诉</div>
+                        <div class="value">False</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-card pass">
+                <div class="test-header">
+                    <span class="test-id">案例 2246337</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="test-name">标签出错，应该是正常</div>
+                <div class="test-reason">💡 用户说'拿到了'且'知道'，应判定为正常</div>
+
+                <div class="result-compare">
+                    <div class="result-item expected">
+                        <div class="label">期望标签</div>
+                        <div class="value">正常</div>
+                    </div>
+                    <div class="result-item actual">
+                        <div class="label">实际判定</div>
+                        <div class="value">正常</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-box">
+                    <strong>对话记录:</strong>
+                    
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">拿到了</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">请问您知道合约吗？</div>
+            </div>
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">知道</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">好的</div>
+            </div>
+                </div>
+
+                <div class="context-grid">
+                    <div class="context-item">
+                        <div class="label">收到商品</div>
+                        <div class="value">True</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">商品类型</div>
+                        <div class="value">None</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">知晓合约</div>
+                        <div class="value">True</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">付费</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">被回收</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">投诉</div>
+                        <div class="value">False</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-card fail">
+                <div class="test-header">
+                    <span class="test-id">案例 2246052</span>
+                    <span class="test-status fail">❌ 失败</span>
+                </div>
+                <div class="test-name">核实流程出错，用户表示没有拿到手机，应该继续问有没有拿到宽带</div>
+                <div class="test-reason">💡 流程错误，话术应继续问宽带/家电，不是直接结束</div>
+
+                <div class="result-compare">
+                    <div class="result-item expected">
+                        <div class="label">期望标签</div>
+                        <div class="value">营销缺失</div>
+                    </div>
+                    <div class="result-item actual">
+                        <div class="label">实际判定</div>
+                        <div class="value">套机套现</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-box">
+                    <strong>对话记录:</strong>
+                    
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">我没有拿到手机</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">好的</div>
+            </div>
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">(无输入)</div>
+            </div>
+                </div>
+
+                <div class="context-grid">
+                    <div class="context-item">
+                        <div class="label">收到商品</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">商品类型</div>
+                        <div class="value">手机</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">知晓合约</div>
+                        <div class="value">None</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">付费</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">被回收</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">投诉</div>
+                        <div class="value">False</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-card pass">
+                <div class="test-header">
+                    <span class="test-id">案例 2246359</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="test-name">标签出错，应该是正常，用户没有明确说自己不知道橙分期</div>
+                <div class="test-reason">💡 用户只回复'嗯'，不是明确否定，应视为中性/正常</div>
+
+                <div class="result-compare">
+                    <div class="result-item expected">
+                        <div class="label">期望标签</div>
+                        <div class="value">正常</div>
+                    </div>
+                    <div class="result-item actual">
+                        <div class="label">实际判定</div>
+                        <div class="value">正常</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-box">
+                    <strong>对话记录:</strong>
+                    
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">拿到了手机</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">请问您知道橙分期吗？</div>
+            </div>
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">嗯</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">好的</div>
+            </div>
+                </div>
+
+                <div class="context-grid">
+                    <div class="context-item">
+                        <div class="label">收到商品</div>
+                        <div class="value">True</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">商品类型</div>
+                        <div class="value">手机</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">知晓合约</div>
+                        <div class="value">None</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">付费</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">被回收</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">投诉</div>
+                        <div class="value">False</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-card pass">
+                <div class="test-header">
+                    <span class="test-id">案例 2246143</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="test-name">标签出错，应该是正常</div>
+                <div class="test-reason">💡 用户明确说'拿到了手机'且'知道'</div>
+
+                <div class="result-compare">
+                    <div class="result-item expected">
+                        <div class="label">期望标签</div>
+                        <div class="value">正常</div>
+                    </div>
+                    <div class="result-item actual">
+                        <div class="label">实际判定</div>
+                        <div class="value">正常</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-box">
+                    <strong>对话记录:</strong>
+                    
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">我办理了橙分期，拿到了手机</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">请问您知道合约吗？</div>
+            </div>
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">知道</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">好的</div>
+            </div>
+                </div>
+
+                <div class="context-grid">
+                    <div class="context-item">
+                        <div class="label">收到商品</div>
+                        <div class="value">True</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">商品类型</div>
+                        <div class="value">手机</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">知晓合约</div>
+                        <div class="value">True</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">付费</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">被回收</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">投诉</div>
+                        <div class="value">False</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-card pass">
+                <div class="test-header">
+                    <span class="test-id">案例 2246037</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="test-name">用户表示手机被门店回收了，要做样板机，实际情况应该是套机套现</div>
+                <div class="test-reason">💡 '手机被回收/做样板' = 未持有商品，应判定套机套现</div>
+
+                <div class="result-compare">
+                    <div class="result-item expected">
+                        <div class="label">期望标签</div>
+                        <div class="value">套机套现</div>
+                    </div>
+                    <div class="result-item actual">
+                        <div class="label">实际判定</div>
+                        <div class="value">套机套现</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-box">
+                    <strong>对话记录:</strong>
+                    
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">手机被门店回收了，要做样板机</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">请问您知道橙分期吗？</div>
+            </div>
+            <div class="dialogue-item user">
+                <div class="label">👤 用户</div>
+                <div class="text">知道</div>
+            </div>
+            <div class="dialogue-item ai">
+                <div class="label">🤖 AI</div>
+                <div class="text">好的</div>
+            </div>
+                </div>
+
+                <div class="context-grid">
+                    <div class="context-item">
+                        <div class="label">收到商品</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">商品类型</div>
+                        <div class="value">手机</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">知晓合约</div>
+                        <div class="value">True</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">付费</div>
+                        <div class="value">False</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">被回收</div>
+                        <div class="value">True</div>
+                    </div>
+                    <div class="context-item">
+                        <div class="label">投诉</div>
+                        <div class="value">False</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 规则优化建议 -->
+        <div class="section">
+            <h2><span class="icon">⚙️</span>规则优化建议</h2>
+
+            <div class="suggestion">
+                <h4>🔧 根据错误案例，需要优化以下规则：</h4>
+                <ul>
+                    <li><strong>2246359 - "嗯"处理</strong>：在商品确认环节，"嗯"应识别为中性词，不应触发"营销缺失"</li>
+                    <li><strong>2246037 - 回收检测</strong>：增加"被回收/做样板/门店回收"关键词 → 触发"套机套现"</li>
+                    <li><strong>2246052 - 流程完整性</strong>：用户说没拿到手机，应继续问宽带/家电，不是直接结束</li>
+                    <li><strong>商品类型优先级</strong>：优先检测是否被回收，再判断商品库</li>
+                    <li><strong>知晓合约判断</strong>：只有明确说"不知道/不晓得/啥是"才算否定，"嗯/啊/哦"不算</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 文件列表 -->
+        <div class="section">
+            <h2><span class="icon">📁</span>数据文件</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>类别</th>
+                        <th>文件路径</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>真实对话</td>
+                        <td>D:\pi-coding-agent\promptflow\data\真实对话\301564-94-公众话术（新系统）-已完成外呼记录_2026-04-15_09-47-38.csv</td>
+                        <td><span class="badge pass">✅ 存在</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>真实对话</td>
+                        <td>D:\pi-coding-agent\promptflow\data\真实对话\301564-94-公众话术（新系统）-已完成外呼记录_2026-04-15_09-50-06.csv</td>
+                        <td><span class="badge pass">✅ 存在</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>话术数据</td>
+                        <td>D:\pi-coding-agent\promptflow\data\话术数据\【Agent话术提示词导出】112471_信贷-甜橙信审-公众引流（流式）-翼支付-流程优化-202603_2026_04_15_09_55_15.md</td>
+                        <td><span class="badge pass">✅ 存在</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>个性标签</td>
+                        <td>D:\pi-coding-agent\promptflow\data\个性标签.md</td>
+                        <td><span class="badge pass">✅ 存在</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>电信橙分期话术与标签优化系统 v{VERSION}</p>
+            <p>报告自动生成 | PromptFlow Framework</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# Prompt Validator Requirements
+
+# Core dependencies
+networkx>=3.0

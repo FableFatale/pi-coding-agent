@@ -1,0 +1,36 @@
+src/bitutils.o: src/bitutils.c \
+ C:/msys64/mingw64/include/POSTGR~1/server/postgres.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/c.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/pg_config.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/pg_config_manual.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/pg_config_os.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/postgres_ext.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port/win32_port.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port/win32/netinet/in.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port/win32/sys/socket.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port/win32/arpa/inet.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/elog.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/lib/stringinfo.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/errcodes.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/palloc.h src/bitutils.h \
+ src/halfvec.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port/pg_bitutils.h
+C:/msys64/mingw64/include/POSTGR~1/server/postgres.h:
+C:/msys64/mingw64/include/POSTGR~1/server/c.h:
+C:/msys64/mingw64/include/POSTGR~1/server/pg_config.h:
+C:/msys64/mingw64/include/POSTGR~1/server/pg_config_manual.h:
+C:/msys64/mingw64/include/POSTGR~1/server/pg_config_os.h:
+C:/msys64/mingw64/include/POSTGR~1/server/postgres_ext.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port/win32_port.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port/win32/netinet/in.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port/win32/sys/socket.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port/win32/arpa/inet.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/elog.h:
+C:/msys64/mingw64/include/POSTGR~1/server/lib/stringinfo.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/errcodes.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/palloc.h:
+src/bitutils.h:
+src/halfvec.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port/pg_bitutils.h:

@@ -1,0 +1,28 @@
+{
+  "name": "pi-user-profile",
+  "version": "0.1.0",
+  "description": "用户档案系统 - 管理用户信息、偏好和习惯",
+  "main": "profile.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "pi-extension",
+    "pi-coding-agent",
+    "profile",
+    "user",
+    "preferences"
+  ],
+  "author": "",
+  "license": "MIT",
+  "pi": {
+    "extensions": ["./profile.ts"]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.66.1"
+  }
+}

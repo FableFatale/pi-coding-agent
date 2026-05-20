@@ -1,0 +1,29 @@
+{
+  "name": "pi-deploy",
+  "version": "0.1.0",
+  "description": "自动化部署 - Docker, CI/CD, GitHub Actions",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "pi-extension",
+    "pi-coding-agent",
+    "deploy",
+    "docker",
+    "ci-cd",
+    "github-actions"
+  ],
+  "author": "",
+  "license": "MIT",
+  "pi": {
+    "extensions": ["./index.ts"]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.66.1"
+  }
+}

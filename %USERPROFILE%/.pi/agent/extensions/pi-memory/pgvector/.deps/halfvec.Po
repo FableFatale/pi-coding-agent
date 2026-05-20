@@ -1,0 +1,119 @@
+src/halfvec.o: src/halfvec.c \
+ C:/msys64/mingw64/include/POSTGR~1/server/postgres.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/c.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/pg_config.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/pg_config_manual.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/pg_config_os.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/postgres_ext.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port/win32_port.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port/win32/netinet/in.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port/win32/sys/socket.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port/win32/arpa/inet.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/elog.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/lib/stringinfo.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/errcodes.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/palloc.h src/bitvec.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/varbit.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/fmgr.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/catalog/pg_type.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/catalog/genbki.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/catalog/objectaddress.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/access/htup.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/storage/itemptr.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/storage/block.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/storage/off.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/storage/itemid.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/nodes/parsenodes.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/common/relpath.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/catalog/catversion.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/nodes/bitmapset.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/nodes/nodes.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/nodes/nodetags.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/nodes/lockoptions.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/nodes/primnodes.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/access/attnum.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/access/cmptype.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/nodes/pg_list.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/nodes/value.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/partitioning/partdefs.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/storage/lockdefs.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/relcache.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/access/tupdesc.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/catalog/pg_attribute.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/catalog/pg_attribute_d.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/catalog/pg_type_d.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/common/shortest_dec.h \
+ src/halfutils.h src/halfvec.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/libpq/pqformat.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/mb/pg_wchar.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port/pg_bswap.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/port.h src/sparsevec.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/array.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/expandeddatum.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/varatt.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/float.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/fmgrprotos.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/utils/lsyscache.h src/vector.h \
+ C:/msys64/mingw64/include/POSTGR~1/server/parser/scansup.h
+C:/msys64/mingw64/include/POSTGR~1/server/postgres.h:
+C:/msys64/mingw64/include/POSTGR~1/server/c.h:
+C:/msys64/mingw64/include/POSTGR~1/server/pg_config.h:
+C:/msys64/mingw64/include/POSTGR~1/server/pg_config_manual.h:
+C:/msys64/mingw64/include/POSTGR~1/server/pg_config_os.h:
+C:/msys64/mingw64/include/POSTGR~1/server/postgres_ext.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port/win32_port.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port/win32/netinet/in.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port/win32/sys/socket.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port/win32/arpa/inet.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/elog.h:
+C:/msys64/mingw64/include/POSTGR~1/server/lib/stringinfo.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/errcodes.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/palloc.h:
+src/bitvec.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/varbit.h:
+C:/msys64/mingw64/include/POSTGR~1/server/fmgr.h:
+C:/msys64/mingw64/include/POSTGR~1/server/catalog/pg_type.h:
+C:/msys64/mingw64/include/POSTGR~1/server/catalog/genbki.h:
+C:/msys64/mingw64/include/POSTGR~1/server/catalog/objectaddress.h:
+C:/msys64/mingw64/include/POSTGR~1/server/access/htup.h:
+C:/msys64/mingw64/include/POSTGR~1/server/storage/itemptr.h:
+C:/msys64/mingw64/include/POSTGR~1/server/storage/block.h:
+C:/msys64/mingw64/include/POSTGR~1/server/storage/off.h:
+C:/msys64/mingw64/include/POSTGR~1/server/storage/itemid.h:
+C:/msys64/mingw64/include/POSTGR~1/server/nodes/parsenodes.h:
+C:/msys64/mingw64/include/POSTGR~1/server/common/relpath.h:
+C:/msys64/mingw64/include/POSTGR~1/server/catalog/catversion.h:
+C:/msys64/mingw64/include/POSTGR~1/server/nodes/bitmapset.h:
+C:/msys64/mingw64/include/POSTGR~1/server/nodes/nodes.h:
+C:/msys64/mingw64/include/POSTGR~1/server/nodes/nodetags.h:
+C:/msys64/mingw64/include/POSTGR~1/server/nodes/lockoptions.h:
+C:/msys64/mingw64/include/POSTGR~1/server/nodes/primnodes.h:
+C:/msys64/mingw64/include/POSTGR~1/server/access/attnum.h:
+C:/msys64/mingw64/include/POSTGR~1/server/access/cmptype.h:
+C:/msys64/mingw64/include/POSTGR~1/server/nodes/pg_list.h:
+C:/msys64/mingw64/include/POSTGR~1/server/nodes/value.h:
+C:/msys64/mingw64/include/POSTGR~1/server/partitioning/partdefs.h:
+C:/msys64/mingw64/include/POSTGR~1/server/storage/lockdefs.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/relcache.h:
+C:/msys64/mingw64/include/POSTGR~1/server/access/tupdesc.h:
+C:/msys64/mingw64/include/POSTGR~1/server/catalog/pg_attribute.h:
+C:/msys64/mingw64/include/POSTGR~1/server/catalog/pg_attribute_d.h:
+C:/msys64/mingw64/include/POSTGR~1/server/catalog/pg_type_d.h:
+C:/msys64/mingw64/include/POSTGR~1/server/common/shortest_dec.h:
+src/halfutils.h:
+src/halfvec.h:
+C:/msys64/mingw64/include/POSTGR~1/server/libpq/pqformat.h:
+C:/msys64/mingw64/include/POSTGR~1/server/mb/pg_wchar.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port/pg_bswap.h:
+C:/msys64/mingw64/include/POSTGR~1/server/port.h:
+src/sparsevec.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/array.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/expandeddatum.h:
+C:/msys64/mingw64/include/POSTGR~1/server/varatt.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/float.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/fmgrprotos.h:
+C:/msys64/mingw64/include/POSTGR~1/server/utils/lsyscache.h:
+src/vector.h:
+C:/msys64/mingw64/include/POSTGR~1/server/parser/scansup.h:

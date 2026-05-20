@@ -1,0 +1,676 @@
+{
+  "timestamp": "2026-04-11 12:21:36",
+  "summary": {
+    "total": 22,
+    "passed": 16,
+    "failed": 6,
+    "categories": {
+      "未沟通": {
+        "total": 3,
+        "passed": 2,
+        "failed": 1
+      },
+      "正常": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0
+      },
+      "套机套现": {
+        "total": 3,
+        "passed": 1,
+        "failed": 2
+      },
+      "违规商品": {
+        "total": 5,
+        "passed": 3,
+        "failed": 2
+      },
+      "营销缺失": {
+        "total": 5,
+        "passed": 5,
+        "failed": 0
+      },
+      "边界": {
+        "total": 2,
+        "passed": 1,
+        "failed": 1
+      }
+    }
+  },
+  "results": [
+    {
+      "name": "零互动-直接挂断",
+      "category": "未沟通",
+      "expected": "未沟通",
+      "actual": "未沟通",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "",
+          "ai": "您好"
+        }
+      ],
+      "context": {
+        "turns": 1,
+        "received_goods": null,
+        "goods_type": null,
+        "has_payment": false,
+        "knows_contract": null,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": true,
+        "no_response": true,
+        "label": "未沟通"
+      }
+    },
+    {
+      "name": "短轮次-只说嗯",
+      "category": "未沟通",
+      "expected": "未沟通",
+      "actual": "未沟通",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "嗯",
+          "ai": "您好"
+        },
+        {
+          "user": "嗯嗯",
+          "ai": "请问"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": null,
+        "goods_type": null,
+        "has_payment": false,
+        "knows_contract": null,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": true,
+        "no_response": false,
+        "label": "未沟通"
+      }
+    },
+    {
+      "name": "中途挂机",
+      "category": "未沟通",
+      "expected": "未沟通",
+      "actual": "营销缺失",
+      "passed": false,
+      "dialogue": [
+        {
+          "user": "等一下",
+          "ai": "好的"
+        },
+        {
+          "user": "",
+          "ai": "喂？"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": null,
+        "goods_type": null,
+        "has_payment": false,
+        "knows_contract": null,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": true,
+        "no_response": false,
+        "label": "营销缺失"
+      }
+    },
+    {
+      "name": "正常-手机",
+      "category": "正常",
+      "expected": "正常",
+      "actual": "正常",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "拿到了华为手机",
+          "ai": "好的"
+        },
+        {
+          "user": "知道每月还款",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": true,
+        "goods_type": "手机",
+        "has_payment": false,
+        "knows_contract": true,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "正常"
+      }
+    },
+    {
+      "name": "正常-宽带",
+      "category": "正常",
+      "expected": "正常",
+      "actual": "正常",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "装好了宽带",
+          "ai": "好的"
+        },
+        {
+          "user": "晓得咯",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": true,
+        "goods_type": "宽带",
+        "has_payment": false,
+        "knows_contract": true,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "正常"
+      }
+    },
+    {
+      "name": "正常-方言",
+      "category": "正常",
+      "expected": "正常",
+      "actual": "正常",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "係啊收到咯",
+          "ai": "请问"
+        },
+        {
+          "user": "整了个路由器",
+          "ai": "好的"
+        },
+        {
+          "user": "知道得嘛",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 3,
+        "received_goods": true,
+        "goods_type": "路由器",
+        "has_payment": true,
+        "knows_contract": true,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "正常"
+      }
+    },
+    {
+      "name": "正常-路由器",
+      "category": "正常",
+      "expected": "正常",
+      "actual": "正常",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "买了个路由器",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": true,
+        "goods_type": "路由器",
+        "has_payment": true,
+        "knows_contract": true,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "正常"
+      }
+    },
+    {
+      "name": "套机套现-只收钱",
+      "category": "套机套现",
+      "expected": "套机套现",
+      "actual": "未沟通",
+      "passed": false,
+      "dialogue": [
+        {
+          "user": "我只收到钱没拿东西",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 1,
+        "received_goods": null,
+        "goods_type": null,
+        "has_payment": false,
+        "knows_contract": null,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": true,
+        "no_response": false,
+        "label": "未沟通"
+      }
+    },
+    {
+      "name": "套机套现-什么都没收",
+      "category": "套机套现",
+      "expected": "套机套现",
+      "actual": "套机套现",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "啥都没收到",
+          "ai": "请问"
+        },
+        {
+          "user": "只有折现",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": false,
+        "goods_type": null,
+        "has_payment": false,
+        "knows_contract": null,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "套机套现"
+      }
+    },
+    {
+      "name": "套机套现-方言",
+      "category": "套机套现",
+      "expected": "套机套现",
+      "actual": "营销缺失",
+      "passed": false,
+      "dialogue": [
+        {
+          "user": "根本冇收到咯",
+          "ai": "请问"
+        },
+        {
+          "user": "只有钱",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": true,
+        "goods_type": null,
+        "has_payment": false,
+        "knows_contract": null,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "营销缺失"
+      }
+    },
+    {
+      "name": "违规商品-耳机",
+      "category": "违规商品",
+      "expected": "违规商品",
+      "actual": "违规商品",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "拿到了耳机",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": true,
+        "goods_type": "耳机",
+        "has_payment": false,
+        "knows_contract": true,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "违规商品"
+      }
+    },
+    {
+      "name": "违规商品-空气炸锅",
+      "category": "违规商品",
+      "expected": "违规商品",
+      "actual": "违规商品",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "整了个空气炸锅",
+          "ai": "好的"
+        },
+        {
+          "user": "晓得咯",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": true,
+        "goods_type": "炸锅",
+        "has_payment": true,
+        "knows_contract": true,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "违规商品"
+      }
+    },
+    {
+      "name": "违规商品-锅",
+      "category": "违规商品",
+      "expected": "违规商品",
+      "actual": "营销缺失",
+      "passed": false,
+      "dialogue": [
+        {
+          "user": "我拿了个锅",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": null,
+        "goods_type": "锅",
+        "has_payment": false,
+        "knows_contract": true,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "营销缺失"
+      }
+    },
+    {
+      "name": "违规商品-充电宝",
+      "category": "违规商品",
+      "expected": "违规商品",
+      "actual": "违规商品",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "拿到了个充电宝",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": true,
+        "goods_type": "充电宝",
+        "has_payment": false,
+        "knows_contract": true,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "违规商品"
+      }
+    },
+    {
+      "name": "违规商品-电视",
+      "category": "违规商品",
+      "expected": "违规商品",
+      "actual": "正常",
+      "passed": false,
+      "dialogue": [
+        {
+          "user": "买了电视",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": true,
+        "goods_type": "电视",
+        "has_payment": true,
+        "knows_contract": true,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "正常"
+      }
+    },
+    {
+      "name": "营销缺失-不知业务",
+      "category": "营销缺失",
+      "expected": "营销缺失",
+      "actual": "营销缺失",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "我不知道啥是橙分期",
+          "ai": "请问"
+        },
+        {
+          "user": "整了个手机",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": true,
+        "goods_type": "手机",
+        "has_payment": true,
+        "knows_contract": false,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "营销缺失"
+      }
+    },
+    {
+      "name": "营销缺失-投诉",
+      "category": "营销缺失",
+      "expected": "营销缺失",
+      "actual": "营销缺失",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "我要投诉",
+          "ai": "请问"
+        },
+        {
+          "user": "被骗了",
+          "ai": "抱歉"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": null,
+        "goods_type": null,
+        "has_payment": false,
+        "knows_contract": null,
+        "is_complaint": true,
+        "is_fraud": true,
+        "hung_up": false,
+        "no_response": false,
+        "label": "营销缺失"
+      }
+    },
+    {
+      "name": "营销缺失-反问",
+      "category": "营销缺失",
+      "expected": "营销缺失",
+      "actual": "营销缺失",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "啥是橙分期？",
+          "ai": "橙分期是..."
+        },
+        {
+          "user": "咋还？",
+          "ai": "每月..."
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": null,
+        "goods_type": null,
+        "has_payment": false,
+        "knows_contract": false,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "营销缺失"
+      }
+    },
+    {
+      "name": "营销缺失-被骗",
+      "category": "营销缺失",
+      "expected": "营销缺失",
+      "actual": "营销缺失",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "我被骗了",
+          "ai": "请问"
+        },
+        {
+          "user": "说免费结果扣钱",
+          "ai": "抱歉"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": null,
+        "goods_type": null,
+        "has_payment": false,
+        "knows_contract": null,
+        "is_complaint": true,
+        "is_fraud": true,
+        "hung_up": false,
+        "no_response": false,
+        "label": "营销缺失"
+      }
+    },
+    {
+      "name": "营销缺失-不知晓合约",
+      "category": "营销缺失",
+      "expected": "营销缺失",
+      "actual": "营销缺失",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "拿到了手机",
+          "ai": "好的"
+        },
+        {
+          "user": "不知道",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 2,
+        "received_goods": true,
+        "goods_type": "手机",
+        "has_payment": false,
+        "knows_contract": false,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "营销缺失"
+      }
+    },
+    {
+      "name": "边界-付费但违规",
+      "category": "边界",
+      "expected": "违规商品",
+      "actual": "违规商品",
+      "passed": true,
+      "dialogue": [
+        {
+          "user": "我花钱买的耳机",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 1,
+        "received_goods": true,
+        "goods_type": "耳机",
+        "has_payment": true,
+        "knows_contract": null,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "违规商品"
+      }
+    },
+    {
+      "name": "边界-矛盾表述",
+      "category": "边界",
+      "expected": "正常",
+      "actual": "营销缺失",
+      "passed": false,
+      "dialogue": [
+        {
+          "user": "收到了但好像又没收到",
+          "ai": "请问"
+        },
+        {
+          "user": "整了个手机",
+          "ai": "好的"
+        },
+        {
+          "user": "知道",
+          "ai": "好的"
+        }
+      ],
+      "context": {
+        "turns": 3,
+        "received_goods": false,
+        "goods_type": "手机",
+        "has_payment": true,
+        "knows_contract": true,
+        "is_complaint": false,
+        "is_fraud": false,
+        "hung_up": false,
+        "no_response": false,
+        "label": "营销缺失"
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "pi-test-runner",
+  "version": "0.1.0",
+  "description": "测试生成和运行 - 支持 Jest, Vitest, Pytest, GoTest",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "pi-extension",
+    "pi-coding-agent",
+    "test",
+    "testing",
+    "jest",
+    "vitest"
+  ],
+  "author": "",
+  "license": "MIT",
+  "pi": {
+    "extensions": ["./index.ts"]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.66.1"
+  }
+}

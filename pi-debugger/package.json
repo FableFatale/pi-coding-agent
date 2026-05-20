@@ -1,0 +1,28 @@
+{
+  "name": "pi-debugger",
+  "version": "0.1.0",
+  "description": "断点调试 - Node.js 和 Python 调试支持",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "pi-extension",
+    "pi-coding-agent",
+    "debugger",
+    "debug",
+    "breakpoint"
+  ],
+  "author": "",
+  "license": "MIT",
+  "pi": {
+    "extensions": ["./index.ts"]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.66.1"
+  }
+}

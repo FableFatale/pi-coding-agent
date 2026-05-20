@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电信橙分期标签测试报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Microsoft YaHei', Arial, sans-serif; background: #f5f7fa; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #333; margin-bottom: 20px; padding: 20px; background: white; border-radius: 8px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .stat-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stat-card h3 { color: #666; font-size: 14px; margin-bottom: 10px; }
+        .stat-card .value { font-size: 32px; font-weight: bold; color: #333; }
+        .stat-card.total { border-left: 4px solid #3498db; }
+        .stat-card.passed { border-left: 4px solid #27ae60; }
+        .stat-card.failed { border-left: 4px solid #e74c3c; }
+        .stat-card.rate { border-left: 4px solid #f39c12; }
+        .category-section { background: white; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+        .category-header { background: #3498db; color: white; padding: 15px 20px; font-weight: bold; }
+        .category-header.failed { background: #e74c3c; }
+        .test-item { padding: 15px 20px; border-bottom: 1px solid #eee; }
+        .test-item:last-child { border-bottom: none; }
+        .test-item.pass { background: #f0fff4; }
+        .test-item.fail { background: #fff5f5; }
+        .test-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .test-name { font-weight: bold; color: #333; }
+        .test-status { padding: 4px 12px; border-radius: 4px; font-size: 12px; }
+        .test-status.pass { background: #27ae60; color: white; }
+        .test-status.fail { background: #e74c3c; color: white; }
+        .dialogue { background: #f8f9fa; padding: 10px; border-radius: 4px; margin-top: 10px; font-size: 13px; }
+        .dialogue-item { margin: 5px 0; }
+        .user { color: #27ae60; }
+        .ai { color: #3498db; }
+        .context { margin-top: 10px; font-size: 12px; color: #666; }
+        .context span { margin-right: 15px; }
+        .footer { text-align: center; color: #999; margin-top: 20px; padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 电信橙分期个性标签测试报告</h1>
+
+        <div class="summary">
+            <div class="stat-card total">
+                <h3>总测试数</h3>
+                <div class="value">22</div>
+            </div>
+            <div class="stat-card passed">
+                <h3>通过</h3>
+                <div class="value">16</div>
+            </div>
+            <div class="stat-card failed">
+                <h3>失败</h3>
+                <div class="value">6</div>
+            </div>
+            <div class="stat-card rate">
+                <h3>通过率</h3>
+                <div class="value">72.7%</div>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <div class="category-header failed">
+                未沟通 (2/3 - 67%)
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">零互动-直接挂断</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 未沟通</span>
+                    <span>实际: 未沟通</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> (无输入)</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 您好</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 1</span>
+                    <span>收到商品: None</span>
+                    <span>商品类型: None</span>
+                    <span>知晓合约: None</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">短轮次-只说嗯</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 未沟通</span>
+                    <span>实际: 未沟通</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 嗯</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 您好</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 嗯嗯</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 请问</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: None</span>
+                    <span>商品类型: None</span>
+                    <span>知晓合约: None</span>
+                </div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-header">
+                    <span class="test-name">中途挂机</span>
+                    <span class="test-status fail">❌ 失败</span>
+                </div>
+                <div class="context">
+                    <span>期望: 未沟通</span>
+                    <span>实际: 营销缺失</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 等一下</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> (无输入)</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 喂？</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: None</span>
+                    <span>商品类型: None</span>
+                    <span>知晓合约: None</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="category-section">
+            <div class="category-header">
+                正常 (4/4 - 100%)
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">正常-手机</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 正常</span>
+                    <span>实际: 正常</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 拿到了华为手机</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 知道每月还款</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 手机</span>
+                    <span>知晓合约: True</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">正常-宽带</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 正常</span>
+                    <span>实际: 正常</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 装好了宽带</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 晓得咯</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 宽带</span>
+                    <span>知晓合约: True</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">正常-方言</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 正常</span>
+                    <span>实际: 正常</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 係啊收到咯</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 请问</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 整了个路由器</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 知道得嘛</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 3</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 路由器</span>
+                    <span>知晓合约: True</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">正常-路由器</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 正常</span>
+                    <span>实际: 正常</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 买了个路由器</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 知道</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 路由器</span>
+                    <span>知晓合约: True</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="category-section">
+            <div class="category-header failed">
+                套机套现 (1/3 - 33%)
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-header">
+                    <span class="test-name">套机套现-只收钱</span>
+                    <span class="test-status fail">❌ 失败</span>
+                </div>
+                <div class="context">
+                    <span>期望: 套机套现</span>
+                    <span>实际: 未沟通</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 我只收到钱没拿东西</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 1</span>
+                    <span>收到商品: None</span>
+                    <span>商品类型: None</span>
+                    <span>知晓合约: None</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">套机套现-什么都没收</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 套机套现</span>
+                    <span>实际: 套机套现</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 啥都没收到</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 请问</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 只有折现</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: False</span>
+                    <span>商品类型: None</span>
+                    <span>知晓合约: None</span>
+                </div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-header">
+                    <span class="test-name">套机套现-方言</span>
+                    <span class="test-status fail">❌ 失败</span>
+                </div>
+                <div class="context">
+                    <span>期望: 套机套现</span>
+                    <span>实际: 营销缺失</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 根本冇收到咯</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 请问</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 只有钱</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: None</span>
+                    <span>知晓合约: None</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="category-section">
+            <div class="category-header failed">
+                违规商品 (3/5 - 60%)
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">违规商品-耳机</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 违规商品</span>
+                    <span>实际: 违规商品</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 拿到了耳机</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 知道</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 耳机</span>
+                    <span>知晓合约: True</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">违规商品-空气炸锅</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 违规商品</span>
+                    <span>实际: 违规商品</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 整了个空气炸锅</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 晓得咯</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 炸锅</span>
+                    <span>知晓合约: True</span>
+                </div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-header">
+                    <span class="test-name">违规商品-锅</span>
+                    <span class="test-status fail">❌ 失败</span>
+                </div>
+                <div class="context">
+                    <span>期望: 违规商品</span>
+                    <span>实际: 营销缺失</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 我拿了个锅</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 知道</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: None</span>
+                    <span>商品类型: 锅</span>
+                    <span>知晓合约: True</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">违规商品-充电宝</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 违规商品</span>
+                    <span>实际: 违规商品</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 拿到了个充电宝</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 知道</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 充电宝</span>
+                    <span>知晓合约: True</span>
+                </div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-header">
+                    <span class="test-name">违规商品-电视</span>
+                    <span class="test-status fail">❌ 失败</span>
+                </div>
+                <div class="context">
+                    <span>期望: 违规商品</span>
+                    <span>实际: 正常</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 买了电视</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 知道</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 电视</span>
+                    <span>知晓合约: True</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="category-section">
+            <div class="category-header">
+                营销缺失 (5/5 - 100%)
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">营销缺失-不知业务</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 营销缺失</span>
+                    <span>实际: 营销缺失</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 我不知道啥是橙分期</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 请问</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 整了个手机</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 手机</span>
+                    <span>知晓合约: False</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">营销缺失-投诉</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 营销缺失</span>
+                    <span>实际: 营销缺失</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 我要投诉</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 请问</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 被骗了</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 抱歉</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: None</span>
+                    <span>商品类型: None</span>
+                    <span>知晓合约: None</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">营销缺失-反问</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 营销缺失</span>
+                    <span>实际: 营销缺失</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 啥是橙分期？</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 橙分期是...</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 咋还？</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 每月...</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: None</span>
+                    <span>商品类型: None</span>
+                    <span>知晓合约: False</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">营销缺失-被骗</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 营销缺失</span>
+                    <span>实际: 营销缺失</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 我被骗了</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 请问</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 说免费结果扣钱</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 抱歉</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: None</span>
+                    <span>商品类型: None</span>
+                    <span>知晓合约: None</span>
+                </div>
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">营销缺失-不知晓合约</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 营销缺失</span>
+                    <span>实际: 营销缺失</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 拿到了手机</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 不知道</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 2</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 手机</span>
+                    <span>知晓合约: False</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="category-section">
+            <div class="category-header failed">
+                边界 (1/2 - 50%)
+            </div>
+
+            <div class="test-item pass">
+                <div class="test-header">
+                    <span class="test-name">边界-付费但违规</span>
+                    <span class="test-status pass">✅ 通过</span>
+                </div>
+                <div class="context">
+                    <span>期望: 违规商品</span>
+                    <span>实际: 违规商品</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 我花钱买的耳机</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 1</span>
+                    <span>收到商品: True</span>
+                    <span>商品类型: 耳机</span>
+                    <span>知晓合约: None</span>
+                </div>
+            </div>
+
+            <div class="test-item fail">
+                <div class="test-header">
+                    <span class="test-name">边界-矛盾表述</span>
+                    <span class="test-status fail">❌ 失败</span>
+                </div>
+                <div class="context">
+                    <span>期望: 正常</span>
+                    <span>实际: 营销缺失</span>
+                </div>
+                <div class="dialogue">
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 收到了但好像又没收到</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 请问</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 整了个手机</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                    <div class="dialogue-item"><span class="user">用户:</span> 知道</div>
+                    <div class="dialogue-item"><span class="ai">AI:</span> 好的</div>
+
+                </div>
+                <div class="context">
+                    <span>轮次: 3</span>
+                    <span>收到商品: False</span>
+                    <span>商品类型: 手机</span>
+                    <span>知晓合约: True</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p>生成时间: 2026-04-11 12:21:36</p>
+            <p>测试框架: PromptFlow</p>
+        </div>
+    </div>
+</body>
+</html>
