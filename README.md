@@ -3,7 +3,8 @@
 > 一个本地运行的 AI 编程助手，基于 Claude Code 风格设计的终端 UI
 
 **位置：** `D:\pi-coding-agent`  
-**版本：** v0.66.1
+**版本：** pi-coding-agent v0.66.1 + @earendil-works/pi-* 0.75.x
+**Node 要求：** Node.js >= 22.19.0
 
 ---
 
@@ -71,6 +72,113 @@ D:\pi-coding-agent\pi.bat
 | `/clear` | 清屏 |
 | `/remember` | 保存记忆 |
 | `/recall` | 搜索记忆 |
+
+---
+
+## Provider 测试
+
+当前根目录已安装：
+
+```text
+@earendil-works/pi-agent-core@0.75.5
+@earendil-works/pi-ai@0.75.5
+@earendil-works/pi-tui@0.75.5
+@earendil-works/pi-web-ui@0.75.3
+```
+
+### 1. 检查 Node 和依赖
+
+```powershell
+cd D:\pi-coding-agent
+node -v
+npm -v
+npm install
+npm audit
+```
+
+期望：
+
+```text
+node >= v22.19.0
+found 0 vulnerabilities
+```
+
+### 2. 查看 OAuth Provider
+
+```powershell
+cd D:\pi-coding-agent
+npx --no-install @earendil-works/pi-ai list
+```
+
+当前支持的 OAuth provider：
+
+```text
+anthropic       Anthropic (Claude Pro/Max)
+github-copilot  GitHub Copilot
+openai-codex    ChatGPT Plus/Pro (Codex Subscription)
+```
+
+### 3. 登录 OAuth Provider
+
+交互式选择：
+
+```powershell
+npx --no-install @earendil-works/pi-ai login
+```
+
+指定 provider：
+
+```powershell
+npx --no-install @earendil-works/pi-ai login anthropic
+npx --no-install @earendil-works/pi-ai login github-copilot
+npx --no-install @earendil-works/pi-ai login openai-codex
+```
+
+登录凭据会写入当前目录的 `auth.json`。如果要给 Pi 主程序使用，建议同步到：
+
+```text
+%USERPROFILE%\.pi\agent\auth.json
+```
+
+### 4. 用 API Key Provider 快速测试
+
+PowerShell 临时设置环境变量：
+
+```powershell
+$env:OPENAI_API_KEY="你的 OpenAI Key"
+$env:ANTHROPIC_API_KEY="你的 Anthropic Key"
+$env:GEMINI_API_KEY="你的 Gemini Key"
+$env:MINIMAX_API_KEY="你的 MiniMax Key"
+```
+
+一次性调用 Pi，避免进入交互界面：
+
+```powershell
+npx --no-install pi -p --provider openai --model gpt-4o-mini "用一句话回复：provider 测试成功"
+npx --no-install pi -p --provider anthropic --model claude-3-5-haiku-20241022 "用一句话回复：provider 测试成功"
+npx --no-install pi -p --provider google --model gemini-2.5-flash "用一句话回复：provider 测试成功"
+npx --no-install pi -p --provider minimax --model MiniMax-M2.7-highspeed "用一句话回复：provider 测试成功"
+```
+
+如果只想验证模型能否被发现：
+
+```powershell
+npx --no-install pi --list-models openai
+npx --no-install pi --list-models anthropic
+npx --no-install pi --list-models google
+npx --no-install pi --list-models minimax
+```
+
+### 5. 常见 Provider 问题
+
+**`No models available`**
+> 没有可用 API Key、OAuth token 或模型配置。先检查环境变量、`auth.json`、`models.json`。
+
+**`EBADENGINE Unsupported engine`**
+> Node 版本低于包声明要求。升级到 Node.js 22.19.0 或更高。
+
+**OAuth 登录后 Pi 仍不可用**
+> `pi-ai login` 默认把 `auth.json` 写在当前目录；Pi 主程序通常读取 `%USERPROFILE%\.pi\agent\auth.json`。
 
 ---
 
@@ -216,12 +324,14 @@ C:\Users\<user>\.pi\agent\
 
 ## 支持的 Provider
 
-| Provider | 环境变量 | baseUrl 示例 |
-|----------|----------|-------------|
-| MiniMax | `MINIMAX_API_KEY` | `https://api.minimaxi.com/anthropic` |
-| Google | `GOOGLE_API_KEY` | `https://api.google.com` |
-| Anthropic | `ANTHROPIC_API_KEY` | `https://api.anthropic.com` |
-| OpenAI | `OPENAI_API_KEY` | `https://api.openai.com` |
+| Provider | 认证方式 | 环境变量 / 登录命令 |
+|----------|----------|---------------------|
+| OpenAI | API Key | `OPENAI_API_KEY` |
+| Anthropic | API Key 或 OAuth | `ANTHROPIC_API_KEY` / `npx --no-install @earendil-works/pi-ai login anthropic` |
+| Google Gemini | API Key | `GEMINI_API_KEY` |
+| MiniMax | API Key | `MINIMAX_API_KEY` |
+| GitHub Copilot | OAuth | `npx --no-install @earendil-works/pi-ai login github-copilot` |
+| OpenAI Codex | OAuth | `npx --no-install @earendil-works/pi-ai login openai-codex` |
 
 ---
 
@@ -247,4 +357,4 @@ C:\Users\<user>\.pi\agent\
 
 ---
 
-*最后更新：2026-04-11*
+*最后更新：2026-05-25*
