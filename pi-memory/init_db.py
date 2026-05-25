@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Pi Memory 数据库初始化 (不需要 pgvector)
+Pi Memory 数据库初始化 (优先启用 pgvector，失败时降级 FTS)
 """
 
 import sys
@@ -56,55 +56,89 @@ def main():
         )
         cur = conn.cursor()
         
-        # 创建表和索引 (使用纯 FTS，不需要 pgvector)
+        # 优先启用 pgvector；没有安装扩展时继续使用纯 FTS。
+        vector_enabled = False
+        try:
+            cur.execute("CREATE EXTENSION IF NOT EXISTS vector")
+            vector_enabled = True
+            print("✅ pgvector 扩展已启用")
+        except Exception as e:
+            conn.rollback()
+            print(f"⚠️  pgvector 不可用，使用 FTS 模式: {e}")
+
+        # 创建表和索引
         cur.execute("""
-            CREATE TABLE IF NOT EXISTS episodic_memories (
+            CREATE TABLE IF NOT EXISTS episodic_sessions (
                 id SERIAL PRIMARY KEY,
-                content TEXT NOT NULL,
-                content_searchable TSVECTOR,
-                metadata JSONB DEFAULT '{}',
+                session_id VARCHAR(255) UNIQUE NOT NULL,
+                title VARCHAR(500),
+                messages JSONB DEFAULT '[]',
+                summary TEXT DEFAULT '',
+                tags TEXT[] DEFAULT '{}',
                 importance FLOAT DEFAULT 1.0,
+                message_count INT DEFAULT 0,
                 access_count INT DEFAULT 0,
+                linked_sessions TEXT[] DEFAULT '{}',
+                metadata JSONB DEFAULT '{}',
                 created_at TIMESTAMP DEFAULT NOW(),
                 updated_at TIMESTAMP DEFAULT NOW()
             );
         """)
+
+        if vector_enabled:
+            cur.execute("""
+                ALTER TABLE episodic_sessions
+                ADD COLUMN IF NOT EXISTS embedding VECTOR(1536);
+            """)
         
         # 创建 FTS 索引
         cur.execute("""
-            CREATE INDEX IF NOT EXISTS idx_fts 
-            ON episodic_memories USING GIN (content_searchable);
+            CREATE INDEX IF NOT EXISTS idx_session_fts 
+            ON episodic_sessions USING GIN (
+                to_tsvector('simple', coalesce(title, '') || ' ' || coalesce(summary, ''))
+            );
         """)
-        
-        # 创建触发器
-        cur.execute("""
-            CREATE OR REPLACE FUNCTION update_content_search()
-            RETURNS TRIGGER AS $$
-            BEGIN
-                NEW.content_searchable := to_tsvector('simple', COALESCE(NEW.content, ''));
-                RETURN NEW;
-            END;
-            $$ LANGUAGE plpgsql;
-        """)
-        
-        cur.execute("""
-            DROP TRIGGER IF EXISTS trigger_fts ON episodic_memories;
-            CREATE TRIGGER trigger_fts
-            BEFORE INSERT OR UPDATE ON episodic_memories
-            FOR EACH ROW EXECUTE FUNCTION update_content_search();
-        """)
-        
+
         # 创建时间索引
         cur.execute("""
-            CREATE INDEX IF NOT EXISTS idx_time 
-            ON episodic_memories (created_at DESC);
+            CREATE INDEX IF NOT EXISTS idx_session_time 
+            ON episodic_sessions (created_at DESC);
         """)
+
+        cur.execute("""
+            CREATE INDEX IF NOT EXISTS idx_session_id 
+            ON episodic_sessions (session_id);
+        """)
+
+        conn.commit()
+
+        if vector_enabled:
+            try:
+                cur.execute("""
+                    CREATE INDEX IF NOT EXISTS idx_session_embedding_hnsw
+                    ON episodic_sessions
+                    USING hnsw (embedding vector_cosine_ops)
+                    WITH (m = 16, ef_construction = 64)
+                    WHERE embedding IS NOT NULL;
+                """)
+            except Exception as e:
+                conn.rollback()
+                print(f"⚠️  HNSW 索引不可用，改用 IVFFlat: {e}")
+                cur = conn.cursor()
+                cur.execute("""
+                    CREATE INDEX IF NOT EXISTS idx_session_embedding_ivfflat
+                    ON episodic_sessions
+                    USING ivfflat (embedding vector_cosine_ops)
+                    WITH (lists = 100)
+                    WHERE embedding IS NOT NULL;
+                """)
         
         conn.commit()
         cur.close()
         conn.close()
         
-        print("✅ 表和索引创建成功 (FTS模式)")
+        mode = "pgvector + FTS" if vector_enabled else "FTS"
+        print(f"✅ 表和索引创建成功 ({mode}模式)")
         
         print("\n" + "=" * 50)
         print("  ✅ 初始化完成！")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-L2 Episodic Memory - PostgreSQL (FTS + LLM摘要)
+L2 Episodic Memory - PostgreSQL + pgvector (FTS + vector search + LLM摘要)
 历史会话存储
 """
 
@@ -40,6 +40,7 @@ class Session:
     summary: str = ""
     tags: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
+    embedding: Optional[List[float]] = None
     message_count: int = 0
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
@@ -49,6 +50,8 @@ class L2EpisodicMemory:
     """
     L2 情景记忆 - PostgreSQL
     - 历史会话存储
+    - pgvector 可用时启用 embedding + 向量检索
+    - pgvector 不可用时自动降级为 FTS
     - LLM 自动摘要
     - 去重 + 链接
     """
@@ -60,7 +63,10 @@ class L2EpisodicMemory:
         database: str = "pimemory",
         user: str = "postgres",
         password: str = "",
-        summarizer_fn: Optional[Callable[[str, int], str]] = None
+        summarizer_fn: Optional[Callable[[str, int], str]] = None,
+        vectorizer_fn: Optional[Callable[[str], List[float]]] = None,
+        vector_dim: int = 1536,
+        auto_init: bool = True
     ):
         """
         Args:
@@ -74,8 +80,12 @@ class L2EpisodicMemory:
             "password": password
         }
         self.summarizer_fn = summarizer_fn
+        self.vectorizer_fn = vectorizer_fn
+        self.vector_dim = vector_dim
+        self.vector_enabled = False
         self._conn = None
-        self._init_db()
+        if auto_init:
+            self._init_db()
         logger.info(f"L2 Episodic Memory initialized: {host}:{port}/{database}")
 
     def _get_conn(self):
@@ -87,6 +97,15 @@ class L2EpisodicMemory:
         """初始化数据库"""
         conn = self._get_conn()
         cur = conn.cursor()
+
+        try:
+            cur.execute("CREATE EXTENSION IF NOT EXISTS vector")
+            self.vector_enabled = True
+            logger.info("L2 pgvector extension enabled")
+        except Exception as e:
+            conn.rollback()
+            self.vector_enabled = False
+            logger.warning(f"L2 pgvector unavailable, using FTS-only mode: {e}")
         
         # 会话表
         cur.execute("""
@@ -106,6 +125,12 @@ class L2EpisodicMemory:
                 updated_at TIMESTAMP DEFAULT NOW()
             );
         """)
+
+        if self.vector_enabled:
+            cur.execute(f"""
+                ALTER TABLE episodic_sessions
+                ADD COLUMN IF NOT EXISTS embedding VECTOR({self.vector_dim});
+            """)
         
         # 全文搜索索引
         cur.execute("""
@@ -126,10 +151,34 @@ class L2EpisodicMemory:
             CREATE INDEX IF NOT EXISTS idx_session_id 
             ON episodic_sessions (session_id);
         """)
+
+        conn.commit()
+
+        if self.vector_enabled:
+            try:
+                cur.execute("""
+                    CREATE INDEX IF NOT EXISTS idx_session_embedding_hnsw
+                    ON episodic_sessions
+                    USING hnsw (embedding vector_cosine_ops)
+                    WITH (m = 16, ef_construction = 64)
+                    WHERE embedding IS NOT NULL;
+                """)
+            except Exception as e:
+                conn.rollback()
+                logger.warning(f"L2 HNSW index unavailable, falling back to IVFFlat: {e}")
+                cur = conn.cursor()
+                cur.execute("""
+                    CREATE INDEX IF NOT EXISTS idx_session_embedding_ivfflat
+                    ON episodic_sessions
+                    USING ivfflat (embedding vector_cosine_ops)
+                    WITH (lists = 100)
+                    WHERE embedding IS NOT NULL;
+                """)
         
         conn.commit()
         cur.close()
-        logger.info("L2 sessions table initialized")
+        mode = "pgvector+FTS" if self.vector_enabled else "FTS-only"
+        logger.info(f"L2 sessions table initialized ({mode})")
 
     # ============================================================
     # 会话操作
@@ -142,6 +191,7 @@ class L2EpisodicMemory:
         title: Optional[str] = None,
         tags: Optional[List[str]] = None,
         metadata: Optional[Dict] = None,
+        embedding: Optional[List[float]] = None,
         auto_summarize: bool = True
     ) -> Optional[int]:
         """
@@ -167,29 +217,66 @@ class L2EpisodicMemory:
             # 生成标题
             if not title:
                 title = self._generate_title(messages)
-            
-            cur.execute("""
-                INSERT INTO episodic_sessions 
-                (session_id, title, messages, summary, tags, message_count, metadata)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-                ON CONFLICT (session_id) DO UPDATE SET
-                    title = EXCLUDED.title,
-                    messages = EXCLUDED.messages,
-                    summary = EXCLUDED.summary,
-                    tags = EXCLUDED.tags,
-                    message_count = EXCLUDED.message_count,
-                    metadata = EXCLUDED.metadata,
-                    updated_at = NOW()
-                RETURNING id
-            """, (
-                session_id,
-                title,
-                json.dumps(messages, ensure_ascii=False),
-                summary,
-                tags or [],
-                len(messages),
-                json.dumps(metadata or {}, ensure_ascii=False)
-            ))
+
+            if embedding is None and self.vector_enabled and self.vectorizer_fn:
+                embedding = self.vectorizer_fn(f"{title}\n{summary}")
+
+            if embedding and len(embedding) != self.vector_dim:
+                logger.warning(
+                    f"L2 embedding dim mismatch: got {len(embedding)}, expected {self.vector_dim}; ignoring"
+                )
+                embedding = None
+
+            embedding_value = self._format_vector(embedding) if self.vector_enabled and embedding else None
+
+            if self.vector_enabled:
+                cur.execute("""
+                    INSERT INTO episodic_sessions 
+                    (session_id, title, messages, summary, tags, message_count, metadata, embedding)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s::vector)
+                    ON CONFLICT (session_id) DO UPDATE SET
+                        title = EXCLUDED.title,
+                        messages = EXCLUDED.messages,
+                        summary = EXCLUDED.summary,
+                        tags = EXCLUDED.tags,
+                        message_count = EXCLUDED.message_count,
+                        metadata = EXCLUDED.metadata,
+                        embedding = EXCLUDED.embedding,
+                        updated_at = NOW()
+                    RETURNING id
+                """, (
+                    session_id,
+                    title,
+                    json.dumps(messages, ensure_ascii=False),
+                    summary,
+                    tags or [],
+                    len(messages),
+                    json.dumps(metadata or {}, ensure_ascii=False),
+                    embedding_value
+                ))
+            else:
+                cur.execute("""
+                    INSERT INTO episodic_sessions 
+                    (session_id, title, messages, summary, tags, message_count, metadata)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    ON CONFLICT (session_id) DO UPDATE SET
+                        title = EXCLUDED.title,
+                        messages = EXCLUDED.messages,
+                        summary = EXCLUDED.summary,
+                        tags = EXCLUDED.tags,
+                        message_count = EXCLUDED.message_count,
+                        metadata = EXCLUDED.metadata,
+                        updated_at = NOW()
+                    RETURNING id
+                """, (
+                    session_id,
+                    title,
+                    json.dumps(messages, ensure_ascii=False),
+                    summary,
+                    tags or [],
+                    len(messages),
+                    json.dumps(metadata or {}, ensure_ascii=False)
+                ))
             
             session_db_id = cur.fetchone()[0]
             conn.commit()
@@ -277,7 +364,9 @@ class L2EpisodicMemory:
         self,
         query: str,
         limit: int = 10,
-        tags: Optional[List[str]] = None
+        tags: Optional[List[str]] = None,
+        query_embedding: Optional[List[float]] = None,
+        hybrid_weight: float = 0.7
     ) -> List[Tuple[Session, float]]:
         """
         搜索会话
@@ -293,6 +382,35 @@ class L2EpisodicMemory:
             if tags:
                 tag_list = " OR ".join([f"%s = ANY(tags)" for _ in tags])
                 tag_filter = f"AND ({tag_list})"
+
+            results: Dict[str, Tuple[Session, float]] = {}
+
+            if (
+                self.vector_enabled
+                and query_embedding
+                and len(query_embedding) == self.vector_dim
+            ):
+                cur.execute(f"""
+                    SELECT id, session_id, title, messages, summary, tags,
+                           importance, message_count, linked_sessions,
+                           metadata, access_count, created_at, updated_at,
+                           embedding <=> %s::vector as distance
+                    FROM episodic_sessions
+                    WHERE embedding IS NOT NULL
+                          {tag_filter}
+                    ORDER BY embedding <=> %s::vector
+                    LIMIT %s
+                """, tuple(
+                    [self._format_vector(query_embedding)]
+                    + (tags or [])
+                    + [self._format_vector(query_embedding), limit * 2]
+                ))
+
+                for row in cur.fetchall():
+                    session = self._row_to_session(row)
+                    distance = float(row[13]) if row[13] is not None else 1.0
+                    score = max(0.0, 1.0 - distance / 2.0) * hybrid_weight
+                    results[session.session_id] = (session, score)
             
             cur.execute(f"""
                 SELECT id, session_id, title, messages, summary, tags,
@@ -313,28 +431,18 @@ class L2EpisodicMemory:
             rows = cur.fetchall()
             cur.close()
             
-            results = []
             for row in rows:
                 self._update_access(row[0])
-                session = Session(
-                    id=row[0],
-                    session_id=row[1],
-                    title=row[2],
-                    messages=json.loads(row[3]) if row[3] else [],
-                    summary=row[4] or "",
-                    tags=row[5] or [],
-                    importance=row[6],
-                    message_count=row[7],
-                    linked_sessions=row[8] or [],
-                    metadata=row[9] or {},
-                    access_count=row[10],
-                    created_at=row[11],
-                    updated_at=row[12]
-                )
-                score = min(float(row[13]) * 10, 1.0) if row[13] else 0.5
-                results.append((session, score))
+                session = self._row_to_session(row)
+                fts_score = min(float(row[13]) * 10, 1.0) if row[13] else 0.5
+                score = fts_score * (1 - hybrid_weight if query_embedding else 1.0)
+                existing = results.get(session.session_id)
+                if existing:
+                    results[session.session_id] = (session, existing[1] + score)
+                else:
+                    results[session.session_id] = (session, score)
             
-            return results
+            return sorted(results.values(), key=lambda item: item[1], reverse=True)[:limit]
         except Exception as e:
             logger.error(f"L2 search error: {e}")
             return []
@@ -472,6 +580,29 @@ class L2EpisodicMemory:
             return first + ("..." if len(first) >= 50 else "")
         
         return f"会话_{datetime.now().strftime('%Y%m%d_%H%M')}"
+
+    def _format_vector(self, values: List[float]) -> str:
+        """格式化为 pgvector 字面量"""
+        return "[" + ",".join(str(float(v)) for v in values) + "]"
+
+    def _row_to_session(self, row) -> Session:
+        """把 SELECT 结果映射为 Session；兼容带额外 score/distance 列的查询。"""
+        messages = json.loads(row[3]) if isinstance(row[3], str) else (row[3] or [])
+        return Session(
+            id=row[0],
+            session_id=row[1],
+            title=row[2],
+            messages=messages,
+            summary=row[4] or "",
+            tags=row[5] or [],
+            importance=row[6],
+            message_count=row[7],
+            linked_sessions=row[8] or [],
+            metadata=row[9] or {},
+            access_count=row[10],
+            created_at=row[11],
+            updated_at=row[12],
+        )
 
     def regenerate_summary(self, session_id: str) -> Optional[str]:
         """重新生成摘要"""

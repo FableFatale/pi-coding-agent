@@ -2,16 +2,16 @@
  * pi-memory - 三层记忆系统
  * 
  * 自动加载 .env 配置
- */
-import 'dotenv/config';
  * L1: Redis Working Memory (会话级, TTL=1h)
  * L2: PostgreSQL Episodic Memory (情景记忆, FTS搜索)
  * L2.5: 文件层 Curated Memory (策划记忆, 立即持久化)
  * 自动: input/tool_result/agent_end → L1 → L2.5关键词触发 → L2.5策划记忆
  */
+import "dotenv/config";
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 import { readFileSync, existsSync } from "fs";
+import { writeFile } from "fs/promises";
 import { join } from "path";
 import { L1WorkingMemory } from "./l1-redis.js";
 import { L2EpisodicMemory } from "./l2-postgres.js";

@@ -25,7 +25,7 @@ class TestL1WorkingMemory:
         assert memory.key_prefix == "test:"
         
         key = memory._make_key("mykey")
-        assert key == "test:mykey"
+        assert key == "test:mykey:messages"
 
 
 class TestL2EpisodicMemory:
@@ -39,9 +39,19 @@ class TestL2EpisodicMemory:
             host="localhost",
             database="test",
             user="postgres",
-            password=""
+            password="",
+            auto_init=False
         )
-        assert memory.vector_dim == 768
+        assert memory.vector_dim == 1536
+        assert memory.vector_enabled is False
+
+    def test_l2_vector_literal(self):
+        """测试 pgvector 字面量格式化"""
+        from pi_memory.l2_episodic import L2EpisodicMemory
+
+        memory = L2EpisodicMemory(auto_init=False)
+
+        assert memory._format_vector([0.1, 0.2, 0.3]) == "[0.1,0.2,0.3]"
 
 
 class TestL3SemanticMemory:
@@ -52,16 +62,19 @@ class TestL3SemanticMemory:
         from pi_memory.l3_semantic import L3SemanticMemory
         
         # Mock mode (no actual Pinecone connection)
-        memory = L3SemanticMemory(api_key="")
-        assert memory.connected == False
+        memory = L3SemanticMemory(pinecone_api_key="")
+        assert memory.is_pinecone_enabled() is False
 
 
 class TestMemorySystem:
     """记忆系统集成测试"""
 
-    def test_system_init(self):
+    def test_system_init(self, monkeypatch):
         """测试系统初始化"""
+        from pi_memory.l2_episodic import L2EpisodicMemory
         from pi_memory import MemorySystem
+
+        monkeypatch.setattr(L2EpisodicMemory, "_init_db", lambda self: None)
         
         # With minimal config (mock mode)
         memory = MemorySystem(
@@ -75,28 +88,34 @@ class TestMemorySystem:
         assert memory.l2 is not None
         assert memory.l3 is not None
 
-    def test_session_methods(self):
+    def test_session_methods(self, monkeypatch):
         """测试会话方法"""
+        from pi_memory.l2_episodic import L2EpisodicMemory
         from pi_memory import MemorySystem
+
+        monkeypatch.setattr(L2EpisodicMemory, "_init_db", lambda self: None)
         
         memory = MemorySystem(pinecone_api_key="")
         
         # These would need actual Redis to work
         # Just test the methods exist
-        assert hasattr(memory, 'session_set')
-        assert hasattr(memory, 'session_get')
+        assert hasattr(memory, 'session_create')
+        assert hasattr(memory, 'session_get_messages')
         assert hasattr(memory, 'session_delete')
 
-    def test_remember_recall(self):
+    def test_remember_recall(self, monkeypatch):
         """测试记忆和回忆"""
+        from pi_memory.l2_episodic import L2EpisodicMemory
         from pi_memory import MemorySystem
+
+        monkeypatch.setattr(L2EpisodicMemory, "_init_db", lambda self: None)
         
         memory = MemorySystem(pinecone_api_key="")
         
-        assert hasattr(memory, 'remember')
-        assert hasattr(memory, 'recall')
-        assert hasattr(memory, 'learn_skill')
-        assert hasattr(memory, 'find_skills')
+        assert hasattr(memory, 'memory_add')
+        assert hasattr(memory, 'memory_search')
+        assert hasattr(memory, 'skill_add')
+        assert hasattr(memory, 'skill_search')
 
 
 class TestSkill:

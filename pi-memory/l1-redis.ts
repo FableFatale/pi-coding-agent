@@ -32,13 +32,24 @@ export class L1WorkingMemory {
     const redisPort = port || parseInt(process.env.REDIS_PORT || "6379");
     
     try {
-      this.redis = new Redis({ host: redisHost, port: redisPort, lazyConnect: true, maxRetriesPerRequest: 1 });
+      this.redis = new Redis({
+        host: redisHost,
+        port: redisPort,
+        lazyConnect: true,
+        maxRetriesPerRequest: 0,
+        enableOfflineQueue: false,
+        connectTimeout: 500,
+        retryStrategy: () => null,
+      });
+      this.redis.on("error", () => {});
+      await this.redis.connect();
       await this.redis.ping();
       this.connected = true;
       console.log("[L1] Redis connected");
       return true;
     } catch {
       this.connected = false;
+      this.redis?.disconnect();
       this.redis = null;
       console.log("[L1] Redis not available, using in-memory fallback");
       return false;

@@ -83,7 +83,8 @@ class MemorySystem:
             database=pg_database,
             user=pg_user,
             password=pg_password,
-            summarizer_fn=summarizer_fn
+            summarizer_fn=summarizer_fn,
+            vectorizer_fn=vectorizer_fn
         )
         
         # L2.5 策划记忆

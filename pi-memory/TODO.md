@@ -35,7 +35,8 @@ pi-memory/
 
 - ioredis: ✅ npm 安装
 - pg: ✅ npm 安装
-- pgvector: ✅ MSYS2 UCRT64 编译安装
+- pgvector: ✅ Windows 使用 Visual Studio Build Tools / VC++ x64 + `nmake /F Makefile.win` 编译安装
+- pgvector: macOS 计划优先使用 Homebrew/Postgres.app；特殊 PostgreSQL 安装再源码 `make && make install`
 
 ## L3 Semantic Memory（未来特性）⏳
 

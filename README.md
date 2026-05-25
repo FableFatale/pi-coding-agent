@@ -265,10 +265,33 @@ C:\Users\<user>\.pi\agent\
 ### 记忆系统扩展
 
 #### pi-memory（三层记忆）
-- **Working Memory**：会话级，自动压缩
-- **Episodic Memory**：SQLite FTS5 全文搜索
-- **Curated Memory**：MD 文件，立即持久化
-- **Semantic Memory**：skills 目录结构化知识
+- **L1 Working Memory**：Redis，会话级短期记忆，自动压缩
+- **L2 Episodic Memory**：PostgreSQL + pgvector，历史会话、摘要、FTS 全文搜索、向量相似检索
+- **L2.5 Curated Memory**：MD 文件，长期偏好、重要事实、人工沉淀记忆
+- **L3 Semantic Memory**：skills 目录结构化知识，Pinecone 为可选未来钩子
+
+当前 Windows 环境已验证：
+
+```text
+PostgreSQL 17.9
+pgvector 0.8.2
+Visual Studio Build Tools / VC++ nmake 编译安装
+```
+
+Windows 下 pgvector 需要和本机 PostgreSQL ABI 匹配，当前流程是用 Visual Studio Build Tools 的 x64 C++ 工具链编译 `pgvector/Makefile.win`，再安装到 `C:\Program Files\PostgreSQL\17`。安装完成后，每个需要向量能力的数据库都要执行：
+
+```powershell
+& "C:\Program Files\PostgreSQL\17\bin\psql.exe" -U postgres -d 你的数据库名 -c "CREATE EXTENSION IF NOT EXISTS vector;"
+```
+
+macOS 计划使用时优先走 Homebrew 或 Postgres.app：
+
+```bash
+brew install postgresql@17 pgvector
+psql -d postgres -c "CREATE EXTENSION IF NOT EXISTS vector;"
+```
+
+官方 pgvector 文档确认 macOS/Linux 可以源码 `make && make install`，也可以用 Homebrew；Homebrew 当前提供 `brew install pgvector`，并有 macOS bottle。也就是说 macOS 通常不需要手动编译，但如果不用 Homebrew/Postgres.app，或 PostgreSQL 安装方式特殊，仍可能需要源码编译。
 
 ```
 /remember <内容>  # 保存记忆
