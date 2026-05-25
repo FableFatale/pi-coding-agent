@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "@earendil-works/pi-agent-core": "^0.75.5",
+    "@earendil-works/pi-ai": "^0.75.5",
+    "@earendil-works/pi-tui": "^0.75.5",
+    "@earendil-works/pi-web-ui": "^0.75.3",
     "@mariozechner/pi-coding-agent": "^0.66.1"
   }
 }
